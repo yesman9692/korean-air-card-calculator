@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대한항공 the First Edition2 vs 캐시백 카드 손익 계산기</title>
+<title>신용카드 손익 계산기 — the First vs 캐시백 / 생활밀착(Mr.Life·iD VITA)</title>
 <style>
   :root{
     --bg:#0f1419; --panel:#1a212b; --panel2:#222c38; --line:#2e3a48;
     --txt:#e7edf3; --sub:#9aa7b4; --accent:#2e8bff; --gold:#e8b84b;
-    --green:#35c46a; --red:#ff5d5d; --kal:#0f4c97;
+    --green:#35c46a; --red:#ff5d5d; --kal:#0f4c97; --cap:#ff9d3c;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
@@ -16,14 +16,18 @@
   .wrap{max-width:1080px;margin:0 auto;}
   h1{font-size:21px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px;}
   h1 .e{color:var(--gold);}
-  .sub{color:var(--sub);font-size:13px;margin-bottom:18px;}
+  .sub{color:var(--sub);font-size:13px;margin-bottom:16px;}
+  .secbar{display:flex;gap:8px;margin:26px 0 14px;align-items:center;}
+  .secbar .num{background:var(--accent);color:#fff;width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex:none;}
+  .secbar h2{font-size:17px;font-weight:800;}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media(max-width:760px){.grid{grid-template-columns:1fr;}}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;}
-  .card h2{font-size:14px;font-weight:700;color:var(--sub);text-transform:uppercase;
+  .card h3{font-size:13px;font-weight:700;color:var(--sub);text-transform:uppercase;
     letter-spacing:.5px;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
-  .field{margin-bottom:16px;}
-  .field label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;}
+  .field{margin-bottom:15px;}
+  .field label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;}
   .field label .val{font-weight:700;color:var(--accent);}
   input[type=range]{width:100%;height:5px;border-radius:5px;background:var(--panel2);
     -webkit-appearance:none;appearance:none;outline:none;}
@@ -41,248 +45,250 @@
     background:#fff;border-radius:50%;transition:.2s;}
   .switch input:checked + .slider{background:var(--green);}
   .switch input:checked + .slider:before{transform:translateX(21px);}
-  .hint{font-size:11.5px;color:var(--sub);margin-top:-8px;margin-bottom:14px;}
-  /* results */
+  .hint{font-size:11.5px;color:var(--sub);margin-top:-6px;margin-bottom:13px;}
   .res-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;}
   .res-head .name{font-size:14px;font-weight:700;}
   .res-head .net{font-size:20px;font-weight:800;}
   .pos{color:var(--green);} .neg{color:var(--red);}
   .bar{height:11px;border-radius:6px;background:var(--panel2);overflow:hidden;margin:7px 0 5px;position:relative;}
   .bar i{position:absolute;top:0;bottom:0;display:block;border-radius:6px;}
-  .resblock{padding:14px 0;border-bottom:1px solid var(--line);}
+  .resblock{padding:13px 0;border-bottom:1px solid var(--line);}
   .resblock:last-child{border-bottom:none;}
   .resblock.win{background:linear-gradient(90deg,rgba(53,196,106,.08),transparent);
-    border-radius:10px;padding:14px 12px;margin:0 -12px;}
+    border-radius:10px;padding:13px 12px;margin:0 -12px;}
   .lines{font-size:12px;color:var(--sub);margin-top:7px;}
   .lines div{display:flex;justify-content:space-between;padding:1.5px 0;}
   .lines .v{color:var(--txt);font-variant-numeric:tabular-nums;}
+  .lines .capped{color:var(--cap);font-weight:600;}
   .verdict{margin-top:16px;background:var(--panel2);border-left:3px solid var(--gold);
     border-radius:8px;padding:13px 15px;font-size:13.5px;}
   .verdict b{color:var(--gold);}
-  .winner-tag{display:inline-block;font-size:10.5px;font-weight:700;background:var(--green);
-    color:#06281a;padding:2px 7px;border-radius:5px;margin-left:6px;vertical-align:middle;}
   .mile-pill{font-size:11px;color:var(--sub);margin-top:6px;}
   .facts{margin-top:16px;font-size:11.5px;color:var(--sub);}
   .facts summary{cursor:pointer;color:var(--accent);font-weight:600;margin-bottom:8px;}
   .facts table{width:100%;border-collapse:collapse;margin-top:8px;}
   .facts td{border-top:1px solid var(--line);padding:5px 4px;vertical-align:top;}
   .facts td:first-child{color:var(--txt);white-space:nowrap;padding-right:12px;}
-  .foot{text-align:center;color:#5b6776;font-size:11px;margin-top:18px;}
+  .warn{background:rgba(255,93,93,.1);border-left:3px solid var(--red);border-radius:8px;
+    padding:11px 14px;font-size:12.5px;margin-bottom:14px;color:#ffd9d9;}
+  .warn b{color:var(--red);}
+  .foot{text-align:center;color:#5b6776;font-size:11px;margin-top:22px;}
+  .divider{height:1px;background:var(--line);margin:8px 0;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>대한항공 <span class="e">the First Edition2</span> vs 범용 캐시백 카드</h1>
-  <p class="sub">8개월(가입~출국) 보유 기준 손익 계산기 · 슬라이더로 직접 조정 · 마일은 이코노미 발권 기준</p>
+  <h1>신용카드 손익 계산기</h1>
+  <p class="sub">월 100-200만 · 8개월 보유(2027.2 호주 이주) 기준 · 슬라이더로 직접 조정 · 수치는 2026.6 팩트체크값</p>
+
+  <!-- ============ 섹션 1 : the First vs 캐시백 ============ -->
+  <div class="secbar"><span class="num">1</span><h2>마일 카드(the First) vs 캐시백 — "이벤트 스위치" 비교</h2></div>
+
+  <div class="warn">
+    <b>⚠️ 13개월 환수 함정:</b> the First 연회비 캐시백·이벤트 혜택은 <b>수령월부터 약 13개월 내 해지 시 전액 환수</b>(현금 청구) + 직전 12개월 현대카드 이벤트 참여 시 제외.
+    8개월 쓰고 해지하는 단타와 충돌 → 면제받아도 토해낼 수 있음. <b>현재(2026.6) 대한항공 카드 연회비 캐시백 이벤트는 없음</b>(4월 종료). (정확 개월수는 가입 시 약관 확인)
+  </div>
 
   <div class="grid">
-    <!-- INPUTS -->
     <div class="card">
-      <h2>⚙️ 내 조건 입력</h2>
-
-      <div class="field">
-        <label>월 카드 소비액 <span class="val" id="v-spend">150만원</span></label>
-        <input type="range" id="spend" min="50" max="400" step="10" value="150">
-      </div>
-
-      <div class="field">
-        <label>카드 보유 개월 (가입~출국) <span class="val" id="v-months">8개월</span></label>
-        <input type="range" id="months" min="3" max="18" step="1" value="8">
-      </div>
-
-      <div class="field">
-        <label>마일 1마일 가치 (원) <span class="val" id="v-mile">15원</span></label>
-        <input type="range" id="mile" min="10" max="22" step="0.5" value="15">
-      </div>
-      <p class="hint">이코노미 발권 12~18원 · 프레스티지 22원. 싼 노선(퍼스 등)에 쓰면 10원 밑으로 떨어짐.</p>
-
-      <div class="field">
-        <label>신혼여행 등 KE 직판 항공권 결제액 <span class="val" id="v-direct">200만원</span></label>
-        <input type="range" id="direct" min="0" max="600" step="20" value="200">
-      </div>
-      <p class="hint">직판 결제분은 1,000원당 5마일 (연 5만 마일 한도). 위 월소비에 포함된 금액 중 일부로 계산.</p>
-
-      <div class="toggle">
-        <span>🎁 첫해 연회비(80만) 면제·캐시백 이벤트 적중</span>
-        <label class="switch"><input type="checkbox" id="waiver"><span class="slider"></span></label>
-      </div>
-
-      <div class="field">
-        <label>별도 신규 캐시백 이벤트 금액 <span class="val" id="v-event">20만원</span></label>
-        <input type="range" id="event" min="0" max="30" step="1" value="20">
-      </div>
-      <p class="hint">최근 이벤트들: 22만 캐시백+3천마일(’25.8), 첫해 연회비 캐시백(’26.4). 가입 직전 현재 이벤트 확인 필수.</p>
-
-      <div class="field">
-        <label>바우처 실현액 (5만×사용매수) <span class="val" id="v-vouch">10만원</span></label>
-        <input type="range" id="vouch" min="0" max="20" step="5" value="10">
-      </div>
-      <p class="hint">총 4매(20만)지만 국제선·KE직판·1인1매. 퍼스(타사)는 사용 불가 → 신혼여행 2매 ≈ 10만이 현실값.</p>
-
-      <div class="field">
-        <label>비교용 캐시백 카드 적립률 <span class="val" id="v-cb">1.2%</span></label>
-        <input type="range" id="cb" min="0.5" max="2" step="0.1" value="1.2">
-      </div>
-      <p class="hint">롯데 LOCA LIKIT 1.2 = 무실적 1.2%(온라인 1.5%), 연회비 약 1만원.</p>
+      <h3>⚙️ 조건 입력</h3>
+      <div class="field"><label>월 카드 소비액 <span class="val" id="v-spend">150만원</span></label>
+        <input type="range" id="spend" min="50" max="400" step="10" value="150"></div>
+      <div class="field"><label>카드 보유 개월 <span class="val" id="v-months">8개월</span></label>
+        <input type="range" id="months" min="3" max="18" step="1" value="8"></div>
+      <div class="field"><label>마일 1마일 가치 (원) <span class="val" id="v-mile">15원</span></label>
+        <input type="range" id="mile" min="10" max="22" step="0.5" value="15"></div>
+      <p class="hint">이코노미 12-18원. 싼 노선(퍼스 등)에 쓰면 10원 밑 = 손해.</p>
+      <div class="field"><label>KE 직판 항공권 결제액 <span class="val" id="v-direct">200만원</span></label>
+        <input type="range" id="direct" min="0" max="600" step="20" value="200"></div>
+      <p class="hint">직판은 1,000원당 5마일. 위 월소비에 포함된 금액 중 일부.</p>
+      <div class="toggle"><span>🎁 첫해 연회비(80만) 면제 이벤트 적중</span>
+        <label class="switch"><input type="checkbox" id="waiver"><span class="slider"></span></label></div>
+      <div class="field"><label>신규 캐시백 이벤트 <span class="val" id="v-event">20만원</span></label>
+        <input type="range" id="event" min="0" max="30" step="1" value="20"></div>
+      <div class="field"><label>바우처 실현액 (5만×매수) <span class="val" id="v-vouch">10만원</span></label>
+        <input type="range" id="vouch" min="0" max="20" step="5" value="10"></div>
+      <p class="hint">총 4매(20만). 국제선·KE직판·1인1매. 퍼스(타사) 불가 → 신혼여행 2매=10만.</p>
+      <div class="field"><label>비교 캐시백 카드 적립률 <span class="val" id="v-cb">1.2%</span></label>
+        <input type="range" id="cb" min="0.5" max="2" step="0.1" value="1.2"></div>
     </div>
-
-    <!-- RESULTS -->
     <div class="card">
-      <h2>📊 8개월 순가치 비교</h2>
-
-      <div class="resblock" id="block-A">
-        <div class="res-head">
-          <span class="name">the First <span style="color:var(--sub);font-weight:400">(이벤트 ❌)</span></span>
-          <span class="net" id="net-A">+0만</span>
-        </div>
-        <div class="bar"><i id="bar-A"></i></div>
-        <div class="lines" id="lines-A"></div>
-      </div>
-
-      <div class="resblock" id="block-B">
-        <div class="res-head">
-          <span class="name">the First <span style="color:var(--sub);font-weight:400">(연회비 면제 ✅)</span></span>
-          <span class="net" id="net-B">+0만</span>
-        </div>
-        <div class="bar"><i id="bar-B"></i></div>
-        <div class="lines" id="lines-B"></div>
-      </div>
-
-      <div class="resblock" id="block-C">
-        <div class="res-head">
-          <span class="name">범용 캐시백 카드</span>
-          <span class="net" id="net-C">+0만</span>
-        </div>
-        <div class="bar"><i id="bar-C"></i></div>
-        <div class="lines" id="lines-C"></div>
-      </div>
-
+      <h3>📊 8개월 순가치</h3>
+      <div class="resblock" id="block-A"><div class="res-head"><span class="name">the First <span style="color:var(--sub);font-weight:400">(이벤트 ❌)</span></span><span class="net" id="net-A">+0만</span></div><div class="bar"><i id="bar-A"></i></div><div class="lines" id="lines-A"></div></div>
+      <div class="resblock" id="block-B"><div class="res-head"><span class="name">the First <span style="color:var(--sub);font-weight:400">(연회비 면제 ✅)</span></span><span class="net" id="net-B">+0만</span></div><div class="bar"><i id="bar-B"></i></div><div class="lines" id="lines-B"></div></div>
+      <div class="resblock" id="block-C"><div class="res-head"><span class="name">범용 캐시백 카드</span><span class="net" id="net-C">+0만</span></div><div class="bar"><i id="bar-C"></i></div><div class="lines" id="lines-C"></div></div>
       <p class="mile-pill" id="milepill"></p>
       <div class="verdict" id="verdict"></div>
+    </div>
+  </div>
 
+  <!-- ============ 섹션 2 : 생활밀착 실적형 ============ -->
+  <div class="secbar"><span class="num">2</span><h2>생활밀착 실적형 — Mr.Life vs iD VITA vs 단순 1.2%</h2></div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🛒 월 항목별 소비 입력</h3>
+      <div class="field"><label>대형마트 (이마트·롯데·홈플) <span class="val" id="v-mart">30만원</span></label>
+        <input type="range" id="mart" min="0" max="100" step="5" value="30"></div>
+      <div class="field"><label>식당/외식 <span class="val" id="v-food">25만원</span></label>
+        <input type="range" id="food" min="0" max="100" step="5" value="25"></div>
+      <div class="field"><label>편의점 <span class="val" id="v-cvs">10만원</span></label>
+        <input type="range" id="cvs" min="0" max="50" step="2" value="10"></div>
+      <div class="field"><label>병원/약국 <span class="val" id="v-hosp">10만원</span></label>
+        <input type="range" id="hosp" min="0" max="60" step="2" value="10"></div>
+      <div class="field"><label>통신/공과금 (전기·가스·폰) <span class="val" id="v-util">15만원</span></label>
+        <input type="range" id="util" min="0" max="50" step="5" value="15"></div>
+      <div class="field"><label>그 외 일반결제 <span class="val" id="v-etc">30만원</span></label>
+        <input type="range" id="etc" min="0" max="200" step="10" value="30"></div>
+      <div class="divider"></div>
+      <p class="hint" id="total-line" style="font-size:13px;color:var(--txt);margin-top:10px;"></p>
+      <p class="hint">전월실적 구간은 위 합계로 자동 판정 (마트=주말 결제, 식당=야간 가정).
+      <br>⚠️ Mr.Life 편의점·병원·외식은 <b style="color:var(--cap)">1건당 1천원</b>(결제 1만원까지만 10%)+횟수 제한 → 버킷 한도를 다 채우려면 결제 건수가 많아야 함. 계산기는 <b style="color:var(--cap)">버킷 한도 상한치</b> 기준.</p>
+    </div>
+    <div class="card">
+      <h3>💰 월 혜택 → 8개월 순가치</h3>
+      <div class="resblock" id="block-ML"><div class="res-head"><span class="name">신한 Mr.Life <span style="color:var(--sub);font-weight:400">(연회비 1.5만)</span></span><span class="net" id="net-ML">+0만</span></div><div class="bar"><i id="bar-ML"></i></div><div class="lines" id="lines-ML"></div></div>
+      <div class="resblock" id="block-VT"><div class="res-head"><span class="name">삼성 iD VITA <span style="color:var(--sub);font-weight:400">(연회비 2만)</span></span><span class="net" id="net-VT">+0만</span></div><div class="bar"><i id="bar-VT"></i></div><div class="lines" id="lines-VT"></div></div>
+      <div class="resblock" id="block-FL"><div class="res-head"><span class="name">단순 1.2% 캐시백</span><span class="net" id="net-FL">+0만</span></div><div class="bar"><i id="bar-FL"></i></div><div class="lines" id="lines-FL"></div></div>
+      <div class="verdict" id="verdict2"></div>
       <details class="facts">
-        <summary>팩트체크된 카드 스펙 (다출처 교차확인)</summary>
+        <summary>한도 구조 (팩트체크값, 2026.6)</summary>
         <table>
-          <tr><td>연회비</td><td>80만원 (기존 50만→80만 인상)</td></tr>
-          <tr><td>연 보너스</td><td>30,000마일 · 첫해 누적 100만원이면 익월 지급 / 2년차 전년 3,600만</td></tr>
-          <tr><td>기본 적립</td><td>1,000원당 1마일 (월 50만 실적 조건)</td></tr>
-          <tr><td>직판 항공권</td><td>1,000원당 5마일 (연 5만 마일 한도)</td></tr>
-          <tr><td>신규 보너스</td><td>3,000마일 (40만원 이상 이용)</td></tr>
-          <tr><td>바우처</td><td>5만원 ×4매 · 국제선·KE직판·1인1매·마일/타사편 제외</td></tr>
-          <tr><td>마일 가치</td><td>이코노미 12~18원, 프레스티지 22원, 일등석 35원</td></tr>
+          <tr><td>Mr.Life 실적구간</td><td>30 / 50 / 100만원</td></tr>
+          <tr><td>Mr.Life 공과금</td><td>10%, 버킷한도 3천/7천/1만 (1건 5천·일1회)</td></tr>
+          <tr><td>Mr.Life TIME</td><td>편의점·병원·약국(All Day)+외식·택시·온라인(야간9-9시) 10%, 버킷한도 1만/2만/3만 (1건 1천)</td></tr>
+          <tr><td>Mr.Life 주말마트</td><td>10%, 버킷한도 3천/7천/1만 (1건 5천)</td></tr>
+          <tr><td>iD VITA 실적구간</td><td>50 / 100만원</td></tr>
+          <tr><td>iD VITA 병원·약국</td><td>20%, 한도 1만/2만</td></tr>
+          <tr><td>iD VITA 마트</td><td>10%, 한도 5천/1만</td></tr>
+          <tr><td>iD VITA 통신</td><td>10%, 한도 5천/1만 (편의점·식당 할인 없음)</td></tr>
         </table>
-        <p style="margin-top:8px">출처: 카드코리아·wealthywing·비즈트리뷴·현대카드 약관·greatsisyphus(2025). 공식 공제표는 봇차단(403)이라 가입 시 KE 사이트에서 실노선 확인 권장.</p>
+        <p style="margin-top:8px">출처: 신한카드 공식·혜택창고(benefitshub)·뱅크샐러드 교차확인. 1건당/횟수 제한은 실제 더 빡빡할 수 있어 가입 시 약관 재확인.</p>
       </details>
     </div>
   </div>
 
-  <p class="foot">개인 의사결정 참고용 · 수치는 입력값 기반 추정 · 가입 직전 현재 진행 이벤트와 약관을 반드시 재확인하세요.</p>
+  <p class="foot">개인 의사결정 참고용 · 한도 적용 후 추정 · 가입 직전 현재 이벤트·약관 재확인 필수</p>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 const fmt = n => (Math.round(n)).toLocaleString();
-// 만원 단위 → 표시
 const won = m => (m>=0?'+':'−') + fmt(Math.abs(m)) + '만';
+const fmtW = w => fmt(w).toLocaleString(); // 원 단위
 
-function calc(){
-  const spend   = +$('spend').value;      // 월 만원
-  const months  = +$('months').value;
-  const mileVal = +$('mile').value;        // 원/마일
-  const direct  = +$('direct').value;      // 직판 결제 누적 만원
-  const waiver  = $('waiver').checked;
-  const evt     = +$('event').value;       // 만원
-  const vouch   = +$('vouch').value;       // 만원
-  const cbRate  = +$('cb').value;          // %
-
-  const totalSpend = spend * months;       // 만원
-  const directCap  = Math.min(direct, totalSpend);
-  const general    = Math.max(0, totalSpend - directCap);
-
-  // ----- 마일 적립 -----
-  // 만원 = 10,000원 → 일반 1마일/1000원 = 만원당 10마일 / 직판 만원당 50마일
-  const baseMiles  = general * 10 + directCap * 50;
-  const bonusMiles = totalSpend >= 100 ? 30000 : 0;   // 첫해 100만 조건
-  const welcome    = totalSpend >= 40 ? 3000 : 0;
-  const totalMiles = baseMiles + bonusMiles + welcome;
-  const mileWon    = totalMiles * mileVal / 10000;     // 만원
-
-  // ----- the First 순가치 -----
-  const fee = 80;
-  const A_fee = -fee;            // 이벤트 없음
-  const B_fee = waiver ? 0 : -fee; // 면제 토글 (토글 OFF면 A와 동일)
-  const common = mileWon + vouch + evt;
-  const netA = A_fee + common;
-  const netB = B_fee + common;
-
-  // ----- 캐시백 카드 -----
-  const cbBack = totalSpend * cbRate/100;
-  const netC = cbBack - 1;  // 연회비 1만
-
-  // ----- 렌더 -----
-  $('v-spend').textContent  = spend + '만원';
-  $('v-months').textContent = months + '개월';
-  $('v-mile').textContent   = mileVal + '원';
-  $('v-direct').textContent = direct + '만원';
-  $('v-event').textContent  = evt + '만원';
-  $('v-vouch').textContent  = vouch + '만원';
-  $('v-cb').textContent     = cbRate.toFixed(1) + '%';
-
-  const all = [netA, netB, netC];
-  const maxAbs = Math.max(60, ...all.map(Math.abs));
-
-  function paint(suffix, net, fee, label){
-    $('net-'+suffix).textContent = won(net);
-    $('net-'+suffix).className = 'net ' + (net>=0?'pos':'neg');
-    const bar = $('bar-'+suffix);
-    const w = Math.min(100, Math.abs(net)/maxAbs*100);
-    bar.style.width = w + '%';
-    bar.style.background = net>=0 ? 'var(--green)' : 'var(--red)';
-    if(suffix==='C'){
-      $('lines-'+suffix).innerHTML =
-        `<div><span>적립 ${cbRate.toFixed(1)}% × ${fmt(totalSpend)}만</span><span class="v">+${fmt(cbBack)}만</span></div>`+
-        `<div><span>연회비</span><span class="v">−1만</span></div>`+
-        `<div><span>제약</span><span class="v">노선·발권 0 · 즉시현금</span></div>`;
-    } else {
-      $('lines-'+suffix).innerHTML =
-        `<div><span>연회비</span><span class="v">${fee===0?'0 (면제)':'−80만'}</span></div>`+
-        `<div><span>마일 ${fmt(totalMiles)} × ${mileVal}원</span><span class="v">+${fmt(mileWon)}만</span></div>`+
-        `<div><span>바우처 실현</span><span class="v">+${vouch}만</span></div>`+
-        `<div><span>신규 캐시백 이벤트</span><span class="v">+${evt}만</span></div>`;
-    }
+/* ---------- 섹션 1 ---------- */
+function calc1(){
+  const spend=+$('spend').value, months=+$('months').value, mileVal=+$('mile').value,
+        direct=+$('direct').value, waiver=$('waiver').checked, evt=+$('event').value,
+        vouch=+$('vouch').value, cbRate=+$('cb').value;
+  const totalSpend=spend*months, directCap=Math.min(direct,totalSpend), general=Math.max(0,totalSpend-directCap);
+  const baseMiles=general*10+directCap*50;
+  const bonusMiles=totalSpend>=100?30000:0, welcome=totalSpend>=40?3000:0;
+  const totalMiles=baseMiles+bonusMiles+welcome, mileWon=totalMiles*mileVal/10000;
+  const common=mileWon+vouch+evt;
+  const netA=-80+common, netB=(waiver?0:-80)+common, netC=totalSpend*cbRate/100-1, cbBack=totalSpend*cbRate/100;
+  $('v-spend').textContent=spend+'만원'; $('v-months').textContent=months+'개월';
+  $('v-mile').textContent=mileVal+'원'; $('v-direct').textContent=direct+'만원';
+  $('v-event').textContent=evt+'만원'; $('v-vouch').textContent=vouch+'만원'; $('v-cb').textContent=cbRate.toFixed(1)+'%';
+  const maxAbs=Math.max(60,Math.abs(netA),Math.abs(netB),Math.abs(netC));
+  function paint(s,net,fee){
+    $('net-'+s).textContent=won(net); $('net-'+s).className='net '+(net>=0?'pos':'neg');
+    const bar=$('bar-'+s); bar.style.width=Math.min(100,Math.abs(net)/maxAbs*100)+'%'; bar.style.background=net>=0?'var(--green)':'var(--red)';
+    if(s==='C'){$('lines-C').innerHTML=`<div><span>적립 ${cbRate.toFixed(1)}% × ${fmt(totalSpend)}만</span><span class="v">+${fmt(cbBack)}만</span></div><div><span>연회비</span><span class="v">−1만</span></div><div><span>제약</span><span class="v">없음·즉시현금</span></div>`;}
+    else{$('lines-'+s).innerHTML=`<div><span>연회비</span><span class="v">${fee===0?'0 (면제)':'−80만'}</span></div><div><span>마일 ${fmt(totalMiles)} × ${mileVal}원</span><span class="v">+${fmt(mileWon)}만</span></div><div><span>바우처</span><span class="v">+${vouch}만</span></div><div><span>이벤트 캐시백</span><span class="v">+${evt}만</span></div>`;}
   }
-  paint('A', netA, -80);
-  paint('B', netB, waiver?0:-80);
-  paint('C', netC);
-
-  // 승자 표시
-  [['A',netA],['B',netB],['C',netC]].forEach(([s])=>$('block-'+s).classList.remove('win'));
-  const theFirstBest = waiver ? netB : netA;       // 현실적으로 둘 중 적용되는 쪽
-  const firstSuffix = waiver ? 'B' : 'A';
-  const winFirst = theFirstBest >= netC;
-  $('block-'+(winFirst?firstSuffix:'C')).classList.add('win');
-
-  $('milepill').textContent =
-    `획득 마일 ${fmt(totalMiles)} = 보너스 ${fmt(bonusMiles)} + 기본 ${fmt(baseMiles)} + 신규 ${fmt(welcome)}  ·  현금환산 ${fmt(mileWon)}만원`;
-
-  // 평가 문구
-  const diff = Math.abs(theFirstBest - netC);
-  let msg;
-  if(waiver){
-    msg = `연회비 면제 이벤트가 적중하면 <b>the First 압승</b> (${won(netB)} vs 캐시백 ${won(netC)}, 격차 ${fmt(diff)}만). 가입 즉시 결정.`;
-  } else if(diff < 8){
-    msg = `<b>거의 비등</b> (the First ${won(netA)} vs 캐시백 ${won(netC)}). 마일·바우처·라운지를 확실히 쓸 자신 있으면 the First, 귀찮으면 캐시백. 마일 가치 슬라이더를 12원으로 내려보면 차이가 더 좁혀짐.`;
-  } else if(theFirstBest > netC){
-    msg = `<b>the First 우위</b> (${won(netA)} vs ${won(netC)}). 단 마일 ${fmt(totalMiles)}개를 <b>실제 이코노미로 잘 발권</b>한다는 조건부. 묵히거나 퍼스 같은 싼 노선에 쓰면 가치 폭락.`;
-  } else {
-    msg = `<b>캐시백 카드 우위</b> (${won(netC)} vs the First ${won(netA)}). 연회비 면제 이벤트가 없으면 80만 부담을 마일이 못 메움. 이벤트 뜰 때까지 캐시백 카드로 버티는 게 합리적.`;
-  }
-  msg += `<br><br>📌 <b>퍼스는 어느 경우든 현금 발권</b>(Cathay·동남아 국적기 100만↓). 마일은 신혼여행 또는 출국 후 한국↔호주 가족방문 성수기에. 마일 10년 유효 → 안 묵힘.`;
-  $('verdict').innerHTML = msg;
+  paint('A',netA,-80); paint('B',netB,waiver?0:-80); paint('C',netC);
+  ['A','B','C'].forEach(s=>$('block-'+s).classList.remove('win'));
+  const firstBest=waiver?netB:netA, firstSuffix=waiver?'B':'A';
+  $('block-'+((firstBest>=netC)?firstSuffix:'C')).classList.add('win');
+  $('milepill').textContent=`획득 마일 ${fmt(totalMiles)} = 보너스 ${fmt(bonusMiles)} + 기본 ${fmt(baseMiles)} + 신규 ${fmt(welcome)} · 환산 ${fmt(mileWon)}만원`;
+  const diff=Math.abs(firstBest-netC); let msg;
+  if(waiver) msg=`연회비 면제 시 <b>the First 우위</b> (${won(netB)} vs 캐시백 ${won(netC)}) — 단 위 13개월 환수 함정 확인 필수.`;
+  else if(diff<8) msg=`<b>거의 비등</b> (the First ${won(netA)} vs 캐시백 ${won(netC)}). 마일 가치 12원으로 내리면 캐시백이 앞섬.`;
+  else if(firstBest>netC) msg=`<b>the First 우위</b> (${won(netA)} vs ${won(netC)}) — 단 마일을 이코노미로 잘 발권하고 환수 함정 안 걸릴 때만.`;
+  else msg=`<b>캐시백 우위</b> (${won(netC)} vs ${won(netA)}). 이벤트 없으면 80만을 마일이 못 메움.`;
+  msg+=`<br><br>📌 퍼스는 현금 발권. 마일은 신혼여행·출국 후 한국↔호주에. 마일 10년 유효.`;
+  $('verdict').innerHTML=msg;
 }
 
-document.querySelectorAll('input').forEach(el=>el.addEventListener('input', calc));
-calc();
+/* ---------- 섹션 2 ---------- */
+function tierML(t){ return t>=100?2 : t>=50?1 : t>=30?0 : -1; }
+function tierVT(t){ return t>=100?1 : t>=50?0 : -1; }
+const ML_UTIL=[3000,7000,10000], ML_TIME=[10000,20000,30000], ML_MART=[3000,7000,10000];
+const VT_HOSP=[10000,20000], VT_MART=[5000,10000], VT_TEL=[5000,10000];
+
+function calc2(){
+  const mart=+$('mart').value, food=+$('food').value, cvs=+$('cvs').value,
+        hosp=+$('hosp').value, util=+$('util').value, etc=+$('etc').value;
+  const months=+$('months').value; // 섹션1 보유개월 공유
+  const total=mart+food+cvs+hosp+util+etc;
+  $('v-mart').textContent=mart+'만원'; $('v-food').textContent=food+'만원'; $('v-cvs').textContent=cvs+'만원';
+  $('v-hosp').textContent=hosp+'만원'; $('v-util').textContent=util+'만원'; $('v-etc').textContent=etc+'만원';
+  $('total-line').innerHTML=`월 합계 <b style="color:var(--accent)">${fmt(total)}만원</b> · 보유 ${months}개월 → 총 ${fmt(total*months)}만원`;
+
+  // 원 단위로 계산 (만원→원: ×10000)
+  const W=v=>v*10000;
+  // ---- Mr.Life ----
+  const tm=tierML(total);
+  let mlLines='', mlMonthly=0;
+  if(tm<0){ mlLines=`<div><span>전월실적 30만 미만</span><span class="v">혜택 0</span></div>`; }
+  else{
+    const utilRaw=W(util)*0.10, utilCap=ML_UTIL[tm], utilD=Math.min(utilRaw,utilCap);
+    const timeRaw=W(cvs+hosp+food)*0.10, timeCap=ML_TIME[tm], timeD=Math.min(timeRaw,timeCap);
+    const martRaw=W(mart)*0.10, martCap=ML_MART[tm], martD=Math.min(martRaw,martCap);
+    mlMonthly=utilD+timeD+martD;
+    const tag=(raw,cap)=>raw>cap?` <span class="capped">(한도)</span>`:'';
+    mlLines=`<div><span>공과금/통신 10%${tag(utilRaw,utilCap)}</span><span class="v">${fmtW(utilD)}원</span></div>`+
+      `<div><span>편의점·병원·외식 10%${tag(timeRaw,timeCap)}</span><span class="v">${fmtW(timeD)}원</span></div>`+
+      `<div><span>주말마트 10%${tag(martRaw,martCap)}</span><span class="v">${fmtW(martD)}원</span></div>`+
+      `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(mlMonthly)}원</span></div>`;
+  }
+  const mlNet=mlMonthly*months/10000 - 1.5;
+  // ---- iD VITA ----
+  const tv=tierVT(total);
+  let vtLines='', vtMonthly=0;
+  if(tv<0){ vtLines=`<div><span>전월실적 50만 미만</span><span class="v">혜택 0</span></div>`; }
+  else{
+    const hRaw=W(hosp)*0.20, hCap=VT_HOSP[tv], hD=Math.min(hRaw,hCap);
+    const mRaw=W(mart)*0.10, mCap=VT_MART[tv], mD=Math.min(mRaw,mCap);
+    const tRaw=W(util)*0.10, tCap=VT_TEL[tv], tD=Math.min(tRaw,tCap);
+    vtMonthly=hD+mD+tD;
+    const tag=(raw,cap)=>raw>cap?` <span class="capped">(한도)</span>`:'';
+    vtLines=`<div><span>병원·약국 20%${tag(hRaw,hCap)}</span><span class="v">${fmtW(hD)}원</span></div>`+
+      `<div><span>마트 10%${tag(mRaw,mCap)}</span><span class="v">${fmtW(mD)}원</span></div>`+
+      `<div><span>통신 10%${tag(tRaw,tCap)}</span><span class="v">${fmtW(tD)}원</span></div>`+
+      `<div><span>편의점·식당</span><span class="v">할인 없음</span></div>`+
+      `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(vtMonthly)}원</span></div>`;
+  }
+  const vtNet=vtMonthly*months/10000 - 2;
+  // ---- 단순 1.2% ----
+  const flMonthly=W(total)*0.012, flNet=flMonthly*months/10000 - 1;
+  const flLines=`<div><span>1.2% × ${fmt(total)}만</span><span class="v">${fmtW(flMonthly)}원/월</span></div>`+
+    `<div><span>연회비</span><span class="v">−1만</span></div><div><span>제약</span><span class="v">없음·무실적</span></div>`;
+
+  const maxAbs=Math.max(20,Math.abs(mlNet),Math.abs(vtNet),Math.abs(flNet));
+  function paint(s,net,lines){
+    $('net-'+s).textContent=won(net); $('net-'+s).className='net '+(net>=0?'pos':'neg');
+    const bar=$('bar-'+s); bar.style.width=Math.min(100,Math.abs(net)/maxAbs*100)+'%'; bar.style.background=net>=0?'var(--green)':'var(--red)';
+    $('lines-'+s).innerHTML=lines;
+  }
+  paint('ML',mlNet,mlLines); paint('VT',vtNet,vtLines); paint('FL',flNet,flLines);
+  [['ML',mlNet],['VT',vtNet],['FL',flNet]].forEach(([s])=>$('block-'+s).classList.remove('win'));
+  const best=Math.max(mlNet,vtNet,flNet);
+  const bestS = best===mlNet?'ML' : best===vtNet?'VT' : 'FL';
+  $('block-'+bestS).classList.add('win');
+
+  const names={ML:'신한 Mr.Life',VT:'삼성 iD VITA',FL:'단순 1.2%'};
+  let v2=`<b>${names[bestS]} 우위</b> — 8개월 순가치 ${won(best)}. `;
+  v2+=`Mr.Life ${won(mlNet)} / iD VITA ${won(vtNet)} / 단순 ${won(flNet)}.`;
+  v2+=`<br><br>📌 한도 때문에 환원율이 10%여도 실제론 월 3-5만이 천장. 네 소비(편의점·외식·병원 多)면 보통 <b>Mr.Life</b>가 커버 폭이 넓어. 병원 지출 크면 iD VITA(20%)도 경쟁력.`;
+  $('verdict2').innerHTML=v2;
+}
+
+function calcAll(){ calc1(); calc2(); }
+document.querySelectorAll('input').forEach(el=>el.addEventListener('input',calcAll));
+calcAll();
 </script>
 </body>
 </html>
