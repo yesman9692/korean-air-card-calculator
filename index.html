@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>신용카드 손익 계산기 — the First vs 캐시백 / 생활밀착(Mr.Life·iD VITA)</title>
+<title>신용카드 손익 계산기 — 2026.07 · 일상=무조건형 vs 캐시백 수확</title>
 <style>
   :root{
     --bg:#0f1419; --panel:#1a212b; --panel2:#222c38; --line:#2e3a48;
@@ -39,6 +39,7 @@
   input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
     background:var(--accent);cursor:pointer;border:3px solid #fff;}
   .count input[type=range]::-webkit-slider-thumb{background:var(--cap);}
+  .pay input[type=range]::-webkit-slider-thumb{background:var(--gold);}
   .toggle{display:flex;align-items:center;justify-content:space-between;
     background:var(--panel2);border-radius:10px;padding:11px 13px;margin-bottom:14px;}
   .toggle span{font-size:13px;}
@@ -79,24 +80,43 @@
   .warn{background:rgba(255,93,93,.1);border-left:3px solid var(--red);border-radius:8px;
     padding:11px 14px;font-size:12.5px;margin-bottom:14px;color:#ffd9d9;}
   .warn b{color:var(--red);}
+  .note{background:rgba(46,139,255,.08);border-left:3px solid var(--accent);border-radius:8px;
+    padding:11px 14px;font-size:12.5px;margin-bottom:14px;color:#cfe2ff;}
+  .note b{color:var(--accent);}
+  /* 섹션3 체크리스트 */
+  .chk{display:flex;align-items:center;gap:11px;padding:9px 4px;border-bottom:1px solid var(--line);font-size:13px;}
+  .chk:last-of-type{border-bottom:none;}
+  .chk input{width:18px;height:18px;accent-color:var(--green);flex:none;cursor:pointer;}
+  .chk .nm{font-weight:600;}
+  .chk .meta{color:var(--sub);font-size:11px;display:block;font-weight:400;}
+  .chk .amt{margin-left:auto;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;flex:none;}
+  .sum3{margin-top:15px;background:var(--panel2);border-radius:10px;padding:15px;
+    display:flex;justify-content:space-between;align-items:center;}
+  .sum3 .lbl{font-size:13px;color:var(--sub);}
+  .sum3 b{color:var(--green);font-size:26px;font-weight:800;}
   .foot{text-align:center;color:#5b6776;font-size:11px;margin-top:22px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>신용카드 손익 계산기</h1>
-  <p class="sub">월 100-200만 · 8개월 보유(2027.2 호주 이주) 기준 · 슬라이더로 직접 조정 · 2026.6 팩트체크값</p>
+  <h1>신용카드 손익 계산기 <span style="font-size:13px;color:var(--gold);font-weight:600">v2 · 2026.07</span></h1>
+  <p class="sub">일상 = "무조건형(ZERO)" vs 카테고리형 실측 · 큰 캐시백은 §3에서 별도 수확 · 8개월 보유(2027.2 호주 이주) 기준 · 슬라이더로 직접 조정</p>
+
+  <div class="note">
+    <b>📌 오늘의 결론 구조:</b> ① <b>일상 주력 1장</b>은 소비가 전방위+간편결제라 <b>무조건 적립형(현대 ZERO)</b>이 카테고리 카드보다 유리 → §2에서 검증.
+    ② <b>큰 신규 캐시백</b>(24~25만)은 상시혜택 궁합 볼 것 없이 실적만 채우고 수확 → §3.  ③ 예식장·항공·호텔은 그때그때 그 달 카드로 한 방씩.
+  </div>
 
   <!-- ============ 섹션 1 ============ -->
   <div class="secbar"><span class="num">1</span><h2>마일 카드(the First) vs 캐시백</h2></div>
   <div class="warn">
-    <b>🔴 현재 이벤트(카드고릴라, ~6/30):</b> 29만 이용 시 <b>29만 캐시백</b> + 해외결제 최대 60만(3,000만 써야 풀). "최대 89만"은 헤드라인, 현실 ≈ 29만.
-    <b>단 ① 29만 &lt; 연회비 80만</b>(단독 본전 X) <b>② 혜택월(8월)부터 13개월 내(2027.8.31) 해지 시 전액 환수</b> → 8개월 단타면 29만 토해냄 <b>③ 직전 6개월 현대카드 결제이력 0 + 과거 이벤트 無</b> 회원만 응모 가능.
+    <b>🔴 현대 the First 이벤트:</b> 29만 이용 시 <b>29만 캐시백</b> + 해외결제 최대 60만(3,000만 써야 풀). "최대 89만"은 헤드라인, 현실 ≈ 29만.
+    <b>단 ① 29만 &lt; 연회비 80만</b>(단독 본전 X) <b>② 혜택월(8월)부터 13개월 내 해지 시 전액 환수</b> → 8개월 단타면 29만 토해냄 <b>③ 직전 6개월 현대카드 결제이력 0</b> 회원만. (이벤트 조건은 시기별 변동 — 가입 직전 재확인)
   </div>
   <div class="grid">
     <div class="card">
       <h3>⚙️ 조건 입력</h3>
-      <div class="field"><label>월 카드 소비액 <span class="val" id="v-spend">150만원</span></label><input type="range" id="spend" min="50" max="400" step="10" value="150"></div>
+      <div class="field"><label>월 카드 소비액 <span class="val" id="v-spend">100만원</span></label><input type="range" id="spend" min="50" max="400" step="10" value="100"></div>
       <div class="field"><label>카드 보유 개월 <span class="val" id="v-months">8개월</span></label><input type="range" id="months" min="3" max="18" step="1" value="8"></div>
       <div class="field"><label>마일 1마일 가치 (원) <span class="val" id="v-mile">15원</span></label><input type="range" id="mile" min="10" max="22" step="0.5" value="15"></div>
       <p class="hint">이코노미 12-18원. 싼 노선(퍼스)에 쓰면 10원 밑 = 손해.</p>
@@ -104,7 +124,7 @@
       <p class="hint">직판 1,000원당 5마일. 위 월소비 중 일부.</p>
       <div class="toggle"><span>🎁 첫해 연회비(80만) 면제 이벤트 적중</span><label class="switch"><input type="checkbox" id="waiver"><span class="slider"></span></label></div>
       <div class="field"><label>신규 캐시백 이벤트 <span class="val" id="v-event">29만원</span></label><input type="range" id="event" min="0" max="60" step="1" value="29"></div>
-      <p class="hint">현재 카드고릴라 이벤트 29만(+해외 최대 60만, 3천만 써야 풀).</p>
+      <p class="hint">현재 이벤트 29만(+해외 최대 60만, 3천만 써야 풀).</p>
       <div class="toggle"><span>🔴 13개월 내 해지 (캐시백 환수 적용)</span><label class="switch"><input type="checkbox" id="clawback" checked><span class="slider"></span></label></div>
       <div class="field"><label>바우처 실현액 (5만×매수) <span class="val" id="v-vouch">10만원</span></label><input type="range" id="vouch" min="0" max="20" step="5" value="10"></div>
       <p class="hint">총 4매. 국제선·KE직판·1인1매. 퍼스(타사) 불가 → 신혼여행 2매=10만.</p>
@@ -121,59 +141,96 @@
   </div>
 
   <!-- ============ 섹션 2 ============ -->
-  <div class="secbar"><span class="num">2</span><h2>생활밀착 — Mr.Life vs iD VITA vs 단순 1.2% (한도·요일·횟수 반영)</h2></div>
+  <div class="secbar"><span class="num">2</span><h2>일상 주력 — 무조건형(ZERO) vs 카테고리형 (한도·요일·횟수·간편결제 반영)</h2></div>
   <div class="grid">
     <div class="card">
       <h3>🛒 월 항목별 소비 + 이용 패턴</h3>
 
       <div class="grp">🏪 마트</div>
-      <div class="field"><label>대형마트 <span class="x0">주말(이마트·롯데·홈플)</span> <span class="val" id="v-martW">15만원</span></label><input type="range" id="martW" min="0" max="80" step="5" value="15"></div>
-      <div class="field"><label>대형마트 <span class="x0">평일</span> <span class="val" id="v-martD">10만원</span></label><input type="range" id="martD" min="0" max="80" step="5" value="10"></div>
-      <div class="field"><label>동네·식자재마트 <span class="x0">(대형마트 아님)</span> <span class="val" id="v-martL">5만원</span></label><input type="range" id="martL" min="0" max="60" step="5" value="5"></div>
+      <div class="field"><label>대형마트 <span class="x0">주말(이마트·롯데·홈플)</span> <span class="val" id="v-martW">0만원</span></label><input type="range" id="martW" min="0" max="80" step="5" value="0"></div>
+      <div class="field"><label>대형마트 <span class="x0">평일</span> <span class="val" id="v-martD">0만원</span></label><input type="range" id="martD" min="0" max="80" step="5" value="0"></div>
+      <div class="field"><label>동네·식자재마트 <span class="x0">(대형마트 아님)</span> <span class="val" id="v-martL">15만원</span></label><input type="range" id="martL" min="0" max="60" step="5" value="15"></div>
 
       <div class="grp">🍚 외식</div>
-      <div class="field"><label>외식 <span class="x0">야간 21-09시</span> <span class="val" id="v-foodN">8만원</span></label><input type="range" id="foodN" min="0" max="60" step="2" value="8"></div>
-      <div class="field count"><label>└ 야간외식 월 이용건수 <span class="val" id="v-cnt2">8건</span></label><input type="range" id="cnt2" min="0" max="20" step="1" value="8"></div>
-      <div class="field"><label>외식 <span class="x0">주간(09-21시)</span> <span class="val" id="v-foodD">17만원</span></label><input type="range" id="foodD" min="0" max="80" step="2" value="17"></div>
+      <div class="field"><label>외식 <span class="x0">야간 21-09시</span> <span class="val" id="v-foodN">5만원</span></label><input type="range" id="foodN" min="0" max="60" step="1" value="5"></div>
+      <div class="field count"><label>└ 야간외식 월 이용건수 <span class="val" id="v-cnt2">5건</span></label><input type="range" id="cnt2" min="0" max="20" step="1" value="5"></div>
+      <div class="field"><label>외식 <span class="x0">주간(09-21시)</span> <span class="val" id="v-foodD">15만원</span></label><input type="range" id="foodD" min="0" max="80" step="1" value="15"></div>
 
       <div class="grp">🏪 편의점·병원</div>
-      <div class="field"><label>편의점 <span class="val" id="v-cvs">10만원</span></label><input type="range" id="cvs" min="0" max="40" step="2" value="10"></div>
-      <div class="field"><label>병원/약국 <span class="val" id="v-hosp">10만원</span></label><input type="range" id="hosp" min="0" max="60" step="2" value="10"></div>
-      <div class="field count"><label>편의점+병원 월 이용건수 <span class="x0">합산(All Day 5회)</span> <span class="val" id="v-cnt1">12건</span></label><input type="range" id="cnt1" min="0" max="30" step="1" value="12"></div>
+      <div class="field"><label>편의점 <span class="val" id="v-cvs">12만원</span></label><input type="range" id="cvs" min="0" max="40" step="1" value="12"></div>
+      <div class="field"><label>병원/약국 <span class="val" id="v-hosp">8만원</span></label><input type="range" id="hosp" min="0" max="60" step="1" value="8"></div>
+      <div class="field count"><label>편의점+병원 월 이용건수 <span class="x0">합산(All Day 5회)</span> <span class="val" id="v-cnt1">14건</span></label><input type="range" id="cnt1" min="0" max="30" step="1" value="14"></div>
 
-      <div class="grp">📱 그 외</div>
-      <div class="field"><label>통신·공과금 (전기·가스·폰) <span class="val" id="v-util">15만원</span></label><input type="range" id="util" min="0" max="50" step="5" value="15"></div>
-      <div class="field"><label>그 외 일반결제 <span class="val" id="v-etc">30만원</span></label><input type="range" id="etc" min="0" max="200" step="10" value="30"></div>
+      <div class="grp">📱 디지털·구독 (신규)</div>
+      <div class="field"><label>배달앱 <span class="x0">배민·요기요</span> <span class="val" id="v-deliv">8만원</span></label><input type="range" id="deliv" min="0" max="50" step="1" value="8"></div>
+      <div class="field"><label>카페 <span class="x0">스타벅스 등</span> <span class="val" id="v-cafe">5만원</span></label><input type="range" id="cafe" min="0" max="30" step="1" value="5"></div>
+      <div class="field"><label>OTT·구독 <span class="x0">넷플·유튜브·멜론</span> <span class="val" id="v-subs">3만원</span></label><input type="range" id="subs" min="0" max="20" step="1" value="3"></div>
+      <div class="field"><label>온라인쇼핑 <span class="x0">쿠팡·11번가</span> <span class="val" id="v-online">12만원</span></label><input type="range" id="online" min="0" max="100" step="2" value="12"></div>
+
+      <div class="grp">📄 그 외</div>
+      <div class="field"><label>통신·공과금 <span class="x0">알뜰폰=혜택X</span> <span class="val" id="v-util">8만원</span></label><input type="range" id="util" min="0" max="50" step="1" value="8"></div>
+      <div class="field"><label>그 외 일반결제 <span class="val" id="v-etc">10만원</span></label><input type="range" id="etc" min="0" max="200" step="5" value="10"></div>
+
+      <div class="grp pay">💳 결제 수단</div>
+      <div class="field pay"><label>간편결제(카카오·네이버페이) 비율 <span class="val" id="v-payr">50%</span></label><input type="range" id="payr" min="0" max="100" step="5" value="50"></div>
+      <p class="hint"><b>보수적 가정</b>: 카테고리 카드(Mr.Life·IBK·NH)는 카카오/네이버페이 결제분을 혜택에서 제외 → 이 비율만큼 카테고리 혜택 감소. <b>무조건형 ZERO는 간편결제도 적립(영향 없음)</b>. 실제는 카드·간편결제사별로 다르니 발급 전 확인.</p>
 
       <div class="tierbox" id="tierbox"></div>
-      <p class="hint">전월실적 = 이번달 위 합계로 자동 판정. 동네·식자재마트는 두 카드 모두 마트할인 <b>미적용</b>(단순 1.2%만). 평일 대형마트·주간 외식은 Mr.Life 미적용.</p>
+      <p class="hint">전월실적 = 이번달 위 합계로 자동 판정. 동네·식자재마트는 <b>모든 카테고리 카드에서 0</b>(대형마트 가맹점 아님) → ZERO만 잡음.</p>
     </div>
     <div class="card">
       <h3>💰 월 혜택 → 8개월 순가치</h3>
+      <div class="resblock" id="block-ZH"><div class="res-head"><span class="name">현대 ZERO <span style="color:var(--sub);font-weight:400">할인형 0.8% 무조건</span></span><span class="net" id="net-ZH">+0만</span></div><div class="bar"><i id="bar-ZH"></i></div><div class="lines" id="lines-ZH"></div></div>
+      <div class="resblock" id="block-ZP"><div class="res-head"><span class="name">현대 ZERO <span style="color:var(--sub);font-weight:400">포인트형 1.2% 무조건</span></span><span class="net" id="net-ZP">+0만</span></div><div class="bar"><i id="bar-ZP"></i></div><div class="lines" id="lines-ZP"></div></div>
       <div class="resblock" id="block-ML"><div class="res-head"><span class="name">신한 Mr.Life <span style="color:var(--sub);font-weight:400">(1.5만)</span></span><span class="net" id="net-ML">+0만</span></div><div class="bar"><i id="bar-ML"></i></div><div class="lines" id="lines-ML"></div></div>
-      <div class="resblock" id="block-VT"><div class="res-head"><span class="name">삼성 iD VITA <span style="color:var(--sub);font-weight:400">(2만)</span></span><span class="net" id="net-VT">+0만</span></div><div class="bar"><i id="bar-VT"></i></div><div class="lines" id="lines-VT"></div></div>
-      <div class="resblock" id="block-FL"><div class="res-head"><span class="name">단순 1.2% 캐시백</span><span class="net" id="net-FL">+0만</span></div><div class="bar"><i id="bar-FL"></i></div><div class="lines" id="lines-FL"></div></div>
+      <div class="resblock" id="block-IBK"><div class="res-head"><span class="name">IBK 데일리위드 <span style="color:var(--sub);font-weight:400">6대영역 1%+1%</span></span><span class="net" id="net-IBK">+0만</span></div><div class="bar"><i id="bar-IBK"></i></div><div class="lines" id="lines-IBK"></div></div>
+      <div class="resblock" id="block-NH"><div class="res-head"><span class="name">NH 올바른FLEX <span style="color:var(--sub);font-weight:400">디지털형</span></span><span class="net" id="net-NH">+0만</span></div><div class="bar"><i id="bar-NH"></i></div><div class="lines" id="lines-NH"></div></div>
       <div class="verdict" id="verdict2"></div>
       <details class="facts">
-        <summary>한도 구조 (팩트체크값, 2026.6)</summary>
+        <summary>한도 구조 (팩트체크값, 2026.07)</summary>
         <table>
-          <tr><td>Mr.Life 실적</td><td>30 / 50 / 100만 구간</td></tr>
-          <tr><td>공과금·통신</td><td>10%, 버킷 3천/7천/1만 (1건 5천)</td></tr>
-          <tr><td>All Day</td><td>편의점·병원·약국 10%, <b>1건 1천 × 월5회</b> = 최대 5천</td></tr>
-          <tr><td>Night 21-09</td><td>야간외식·택시·온라인 10%, <b>1건 1천 × 월10회</b> = 최대 1만</td></tr>
-          <tr><td>(TIME 버킷)</td><td>All Day+Night 통합 1만/2만/3만</td></tr>
-          <tr><td>주말마트</td><td>토·일, 이마트·롯데·홈플·SSM·온라인몰만. 10%, 버킷 3천/7천/1만</td></tr>
-          <tr><td>iD VITA 실적</td><td>50 / 100만</td></tr>
-          <tr><td>병원·약국</td><td>20%, 1만/2만</td></tr>
-          <tr><td>마트</td><td>대형마트·하나로마트 10%, 5천/1만 (요일무관, 동네마트 제외)</td></tr>
-          <tr><td>통신</td><td>통신·렌탈·구독 10%, 5천/1만 (전기·가스 제외 가능)</td></tr>
+          <tr><td>현대 ZERO Edition3</td><td>전 가맹점 무실적 · 할인형 0.8%(청구할인) / 포인트형 1.2%(M포인트) · 한도 없음 · 연회비 1.5만 <b>100% 캐시백</b>. 공과금·상품권·등록금 등 적립제외(여기선 통신·공과금 제외로 모델)</td></tr>
+          <tr><td>Mr.Life 실적</td><td>30 / 50 / 100만 구간. 공과금·통신 10%(3천/7천/1만) · All Day(편의점·병원 10%, 1건1천×월5회=5천) · Night 21-09(야간외식 10%, ×월10회=1만) · TIME통합 1만/2만/3만 · 주말대형마트 10%(3천/7천/1만)</td></tr>
+          <tr><td>IBK 데일리위드</td><td>전월 50만 · 6대영역(음식점·대형마트·편의점·온라인·통신·병원·교통) 기본 1% <b>한도무제한</b> + 최다영역 +1%(월10만 한도=최대 1천) · <b>동네식자재마트·그외 제외</b> · 연회비 캐시백</td></tr>
+          <tr><td>NH 올바른FLEX</td><td>전월 30만 · 편의점5%(5천)·배달10%(5천)·스벅50%(1만)·구독20%(5천)·온라인5%(5천)·통신7%(알뜰폰 제외→0) · <b>월통합 3.2만 한도</b> · 외식·마트·병원 없음 · 3년 유지</td></tr>
+          <tr><td>간편결제 가정</td><td>카테고리 카드는 카카오/네이버페이 결제분 혜택 제외(보수적). ZERO는 포함. 카드별 실제 상이 → 발급 전 약관 확인</td></tr>
         </table>
-        <p style="margin-top:8px">출처: 신한카드·혜택창고(benefitshub)·뱅크샐러드 교차. 동네 식자재마트는 대형마트 가맹점 아니라 마트할인 제외(가맹점 등록분류 따라 변동 가능, 영수증/앱 확인 권장).</p>
+        <p style="margin-top:8px">출처: 각 카드사 공식·BC카드·뱅크샐러드·benefitshub 교차(2026.07 조사). 동네 식자재마트는 대형마트 가맹점 분류 아니라 마트할인 제외. 현대 ZERO 7월 신규 보너스는 미확정(§3의 큰 캐시백은 타사에서 수확 권장).</p>
       </details>
     </div>
   </div>
 
-  <p class="foot">개인 의사결정 참고용 · 한도·요일·횟수 적용 후 추정 · 가입 직전 약관 재확인 필수</p>
+  <!-- ============ 섹션 3 ============ -->
+  <div class="secbar"><span class="num">3</span><h2>7월 신규 캐시백 수확 (일회성 · 실적은 생활비로 자동 충족)</h2></div>
+  <div class="note">
+    최소실적(15~30만)은 월 100만 소비면 첫 달에 자동 클리어 → <b>상시혜택 궁합 볼 것 없이 캐시백 금액만 보고</b> 골라 수확. 만들 카드에 첫 달 소비를 몰아주면 됨.
+    <b>⚠️ 발급이력 충돌</b>: 신규 캐시백은 보통 "최근 6개월~1년 내 그 카드사 발급이력 없어야" 조건. <b>일상 주력을 현대 ZERO로 만들면 현대 T(25만) 보너스가 막힐 수 있음</b> → 주력=현대 / 보너스=타사(신한) 로 분리.
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>✅ 수확할 카드 고르기</h3>
+      <div class="grp">신용카드</div>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="25" checked><span class="nm">현대 T (트래블)<span class="meta">30만 이용 → 25만 · 1년 유지 · 비자발급 · 해외특화</span></span><span class="amt">25만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="24" checked><span class="nm">신한카드<span class="meta">28만 이용(+리볼빙) → 24만 · 카드선택 가능(Mr.Life도) · ~1년</span></span><span class="amt">24만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="23"><span class="nm">KB국민 굿데이<span class="meta">25만 이용(KB페이 1만↑) → 23만 · 8/15까지 · 1년</span></span><span class="amt">23만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="22"><span class="nm">롯데 (아맥스)<span class="meta">30만 이용(+리볼빙) → 22만 · 아멕스발급 · 8/10까지</span></span><span class="amt">22만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="21.5"><span class="nm">농협<span class="meta">30만(2단계) → 21.5만 · 3년 유지 · 2단계 관리</span></span><span class="amt">21.5만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="20"><span class="nm">하나 (카카오페이)<span class="meta">25만 이용 → 20만 · 2년 · 조건 복잡</span></span><span class="amt">20만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="15"><span class="nm">삼성 트라이플러스<span class="meta">25만 → 15만 · 4년(1년내해지만 환수) · 이번달 약함</span></span><span class="amt">15만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="10"><span class="nm">IBK 기업<span class="meta">20만 → 10만 · 2년 · 애매</span></span><span class="amt">10만</span></label>
+      <div class="grp">체크카드 (거의 공짜)</div>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="4.55" checked><span class="nm">국민 체크(놀이2 등)<span class="meta">4.5만 이용 → 45,500 페이코P(출금가능) · 8/10까지</span></span><span class="amt">4.55만</span></label>
+      <label class="chk"><input type="checkbox" class="c3" data-amt="2"><span class="nm">신한 체크<span class="meta">발급+2만원 · 교통 이용</span></span><span class="amt">2만</span></label>
+    </div>
+    <div class="card">
+      <h3>💵 수확 합계</h3>
+      <div class="sum3"><span class="lbl">선택한 카드 총 캐시백</span><b id="sum3">0만</b></div>
+      <div class="lines" id="sum3lines" style="margin-top:14px"></div>
+      <div class="verdict" id="verdict3"></div>
+    </div>
+  </div>
+
+  <p class="foot">개인 의사결정 참고용 · 한도·요일·횟수·간편결제 가정 적용 후 추정 · 가입 직전 약관 재확인 필수 · 2026.07 조사값</p>
 </div>
 
 <script>
@@ -187,7 +244,7 @@ function calc1(){
   const spend=+$('spend').value, months=+$('months').value, mileVal=+$('mile').value,
         direct=+$('direct').value, waiver=$('waiver').checked, evt=+$('event').value,
         clawback=$('clawback').checked, vouch=+$('vouch').value, cbRate=+$('cb').value;
-  const effEvt = clawback ? 0 : evt;  // 13개월 내 해지 시 캐시백 환수
+  const effEvt = clawback ? 0 : evt;
   const totalSpend=spend*months, directCap=Math.min(direct,totalSpend), general=Math.max(0,totalSpend-directCap);
   const baseMiles=general*10+directCap*50, bonusMiles=totalSpend>=100?30000:0, welcome=totalSpend>=40?3000:0;
   const totalMiles=baseMiles+bonusMiles+welcome, mileWon=totalMiles*mileVal/10000, common=mileWon+vouch+effEvt;
@@ -211,91 +268,139 @@ function calc1(){
   else if(diff<8) msg=`<b>거의 비등</b> (the First ${won(netA)} vs ${won(netC)}). 마일 12원이면 캐시백이 앞섬.`;
   else if(firstBest>netC) msg=`<b>the First 우위</b> (${won(netA)} vs ${won(netC)}) — 마일 잘 발권 + 환수 회피 조건.`;
   else msg=`<b>캐시백 우위</b> (${won(netC)} vs ${won(netA)}). 이벤트 없으면 80만을 못 메움.`;
-  msg+=`<br><br>📌 퍼스는 현금. 마일은 신혼여행·출국 후 한국↔호주에.`;
+  msg+=`<br><br>📌 퍼스는 현금. 마일은 신혼여행·출국 후 한국↔호주에. the First는 지금 만들 필요 없이 §3 큰 지출 시점에 재검토.`;
   $('verdict').innerHTML=msg;
 }
 
 /* ---------- 섹션 2 ---------- */
 function tierML(t){ return t>=100?2 : t>=50?1 : t>=30?0 : -1; }
-function tierVT(t){ return t>=100?1 : t>=50?0 : -1; }
 const ML_UTIL=[3000,7000,10000], ML_TIME=[10000,20000,30000], ML_MART=[3000,7000,10000];
-const VT_HOSP=[10000,20000], VT_MART=[5000,10000], VT_TEL=[5000,10000];
 const W=v=>v*10000;
 const tag=(raw,cap)=>raw>cap+0.5?` <span class="capped">(한도)</span>`:'';
 
 function calc2(){
   const martW=+$('martW').value, martD=+$('martD').value, martL=+$('martL').value,
         foodN=+$('foodN').value, foodD=+$('foodD').value, cvs=+$('cvs').value, hosp=+$('hosp').value,
-        util=+$('util').value, etc=+$('etc').value, cnt1=+$('cnt1').value, cnt2=+$('cnt2').value;
+        deliv=+$('deliv').value, cafe=+$('cafe').value, subs=+$('subs').value, online=+$('online').value,
+        util=+$('util').value, etc=+$('etc').value, cnt1=+$('cnt1').value, cnt2=+$('cnt2').value,
+        payr=+$('payr').value;
   const months=+$('months').value;
-  const total=martW+martD+martL+foodN+foodD+cvs+hosp+util+etc;
-  // labels
-  [['martW',martW],['martD',martD],['martL',martL],['foodN',foodN],['foodD',foodD],['cvs',cvs],['hosp',hosp],['util',util],['etc',etc]].forEach(([k,v])=>$('v-'+k).textContent=v+'만원');
-  $('v-cnt1').textContent=cnt1+'건'; $('v-cnt2').textContent=cnt2+'건';
+  const cf = 1 - payr/100;   // 카테고리 카드 적용률(간편결제분 제외)
+  const total=martW+martD+martL+foodN+foodD+cvs+hosp+deliv+cafe+subs+online+util+etc;
+  [['martW',martW],['martD',martD],['martL',martL],['foodN',foodN],['foodD',foodD],['cvs',cvs],['hosp',hosp],
+   ['deliv',deliv],['cafe',cafe],['subs',subs],['online',online],['util',util],['etc',etc]]
+    .forEach(([k,v])=>$('v-'+k).textContent=v+'만원');
+  $('v-cnt1').textContent=cnt1+'건'; $('v-cnt2').textContent=cnt2+'건'; $('v-payr').textContent=payr+'%';
 
-  const tm=tierML(total), tv=tierVT(total);
+  const tm=tierML(total), ibkOK=total>=50, nhOK=total>=30;
   const tmName=tm<0?'실적미달':['30만','50만','100만+'][tm];
-  const tvName=tv<0?'실적미달':['50만','100만+'][tv];
-  $('tierbox').innerHTML=`전월실적(이번달 합계) <b>${fmt(total)}만원</b> → Mr.Life <b>${tmName} 구간</b> · iD VITA <b>${tvName} 구간</b><br><span style="color:var(--sub)">적용 한도 — Mr.Life: 공과금 ${tm<0?0:ML_UTIL[tm]/10000}만·TIME ${tm<0?0:ML_TIME[tm]/10000}만·마트 ${tm<0?0:ML_MART[tm]/10000}만 / iD VITA: 병원 ${tv<0?0:VT_HOSP[tv]/10000}만·마트 ${tv<0?0:VT_MART[tv]/10000}만·통신 ${tv<0?0:VT_TEL[tv]/10000}만</span>`;
+  $('tierbox').innerHTML=`전월실적(이번달 합계) <b>${fmt(total)}만원</b> · 간편결제 <b>${payr}%</b><br>`+
+    `<span style="color:var(--sub)">Mr.Life <b style="color:var(--txt)">${tmName}</b> 구간 · IBK 데일리위드 <b style="color:var(--txt)">${ibkOK?'50만 충족':'실적미달'}</b> · NH FLEX <b style="color:var(--txt)">${nhOK?'30만 충족':'실적미달'}</b> · ZERO <b style="color:var(--txt)">무실적(항상 적용)</b></span>`;
 
-  // ---- Mr.Life ----
+  // ---- 현대 ZERO (무조건, 간편결제 포함) : 공과금·통신 제외 모델 ----
+  const eligZ = Math.max(0, total - util);
+  const zhMonthly = W(eligZ)*0.008, zpMonthly = W(eligZ)*0.012;
+  const zhNet = zhMonthly*months/10000 - 0, zpNet = zpMonthly*months/10000 - 0;
+  const zLines = r => `<div><span>${(r*100).toFixed(1)}% × ${fmt(eligZ)}만 <span class="x0">(전 가맹점)</span></span><span class="v">${fmtW(W(eligZ)*r)}원/월</span></div>`+
+    `<div><span>식자재마트·간편결제 포함</span><span class="v">전부 적립</span></div>`+
+    `<div><span class="zero">공과금·통신 제외</span><span class="v zero">0</span></div>`+
+    `<div><span>연회비</span><span class="v">0 (100%캐시백)</span></div>`;
+
+  // ---- Mr.Life (간편결제분 제외 = cf) ----
   let mlLines='', mlMonthly=0;
   if(tm<0){ mlLines=`<div><span>전월실적 30만 미만 → 혜택</span><span class="v zero">0</span></div>`; }
   else{
-    const utilRaw=W(util)*0.10, utilD=Math.min(utilRaw,ML_UTIL[tm]);
-    const allRaw=W(cvs+hosp)*0.10, allByCnt=Math.min(cnt1,5)*1000, allD=Math.min(allRaw,allByCnt);
-    const nightRaw=W(foodN)*0.10, nightByCnt=Math.min(cnt2,10)*1000, nightD=Math.min(nightRaw,nightByCnt);
+    const utilRaw=W(util)*cf*0.10, utilD=Math.min(utilRaw,ML_UTIL[tm]);
+    const allRaw=W(cvs+hosp)*cf*0.10, allByCnt=Math.min(cnt1,5)*1000, allD=Math.min(allRaw,allByCnt);
+    const nightRaw=W(foodN)*cf*0.10, nightByCnt=Math.min(cnt2,10)*1000, nightD=Math.min(nightRaw,nightByCnt);
     const timeD=Math.min(allD+nightD, ML_TIME[tm]);
-    const martRaw=W(martW)*0.10, martD2=Math.min(martRaw,ML_MART[tm]);
+    const martRaw=W(martW)*cf*0.10, martD2=Math.min(martRaw,ML_MART[tm]);
     mlMonthly=utilD+timeD+martD2;
     mlLines=`<div><span>공과금·통신 10%${tag(utilRaw,ML_UTIL[tm])}</span><span class="v">${fmtW(utilD)}원</span></div>`+
       `<div><span>편의점·병원 (${Math.min(cnt1,5)}/5회×1천)</span><span class="v">${fmtW(allD)}원</span></div>`+
       `<div><span>야간외식 (${Math.min(cnt2,10)}/10회×1천)</span><span class="v">${fmtW(nightD)}원</span></div>`+
       (allD+nightD>ML_TIME[tm]+0.5?`<div><span class="capped">└ TIME 버킷 ${ML_TIME[tm]/10000}만 한도</span><span class="v capped">${fmtW(timeD)}원</span></div>`:``)+
       `<div><span>주말 대형마트 10%${tag(martRaw,ML_MART[tm])}</span><span class="v">${fmtW(martD2)}원</span></div>`+
-      `<div><span class="zero">평일마트·주간외식·동네마트</span><span class="v zero">0</span></div>`+
+      `<div><span class="zero">평일마트·주간외식·동네마트·배달·온라인</span><span class="v zero">0</span></div>`+
       `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(mlMonthly)}원</span></div>`;
   }
   const mlNet=mlMonthly*months/10000 - 1.5;
 
-  // ---- iD VITA ----
-  let vtLines='', vtMonthly=0;
-  if(tv<0){ vtLines=`<div><span>전월실적 50만 미만 → 혜택</span><span class="v zero">0</span></div>`; }
+  // ---- IBK 데일리위드 (6대영역 1% + 최다 1%, 간편결제분 제외) ----
+  let ibkLines='', ibkMonthly=0;
+  if(!ibkOK){ ibkLines=`<div><span>전월실적 50만 미만 → 혜택</span><span class="v zero">0</span></div>`; }
   else{
-    const hRaw=W(hosp)*0.20, hD=Math.min(hRaw,VT_HOSP[tv]);
-    const mRaw=W(martW+martD)*0.10, mD=Math.min(mRaw,VT_MART[tv]);
-    const tRaw=W(util)*0.10, tD=Math.min(tRaw,VT_TEL[tv]);
-    vtMonthly=hD+mD+tD;
-    vtLines=`<div><span>병원·약국 20%${tag(hRaw,VT_HOSP[tv])}</span><span class="v">${fmtW(hD)}원</span></div>`+
-      `<div><span>대형마트 10%${tag(mRaw,VT_MART[tv])}</span><span class="v">${fmtW(mD)}원</span></div>`+
-      `<div><span>통신 10%${tag(tRaw,VT_TEL[tv])}</span><span class="v">${fmtW(tD)}원</span></div>`+
-      `<div><span class="zero">편의점·외식·동네마트</span><span class="v zero">0</span></div>`+
-      `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(vtMonthly)}원</span></div>`;
+    const aFood=foodN+foodD+cafe, aOnline=online+deliv, aMart=martW+martD;
+    const elig=aFood+cvs+hosp+aOnline+aMart;   // 만원
+    const base=W(elig)*cf*0.01;
+    const topW=W(Math.max(aFood,cvs,hosp,aOnline,aMart))*cf;
+    const add=Math.min(topW,100000)*0.01;      // 최다영역 +1%, 월10만 한도
+    ibkMonthly=base+add;
+    ibkLines=`<div><span>6대영역 1% (${fmt(elig)}만)</span><span class="v">${fmtW(base)}원</span></div>`+
+      `<div><span>최다영역 +1%${add>=1000-0.5?` <span class="capped">(1천 한도)</span>`:''}</span><span class="v">${fmtW(add)}원</span></div>`+
+      `<div><span class="zero">동네식자재마트·공과금·구독·그외</span><span class="v zero">0</span></div>`+
+      `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(ibkMonthly)}원</span></div>`;
   }
-  const vtNet=vtMonthly*months/10000 - 2;
+  const ibkNet=ibkMonthly*months/10000 - 0;
 
-  // ---- 단순 1.2% ----
-  const flMonthly=W(total)*0.012, flNet=flMonthly*months/10000 - 1;
-  const flLines=`<div><span>1.2% × ${fmt(total)}만 (전 항목)</span><span class="v">${fmtW(flMonthly)}원/월</span></div><div><span>연회비</span><span class="v">−1만</span></div><div><span>제약</span><span class="v">없음·무실적</span></div>`;
+  // ---- NH 올바른FLEX (디지털 버킷, 월통합 3.2만, 간편결제분 제외) ----
+  let nhLines='', nhMonthly=0;
+  if(!nhOK){ nhLines=`<div><span>전월실적 30만 미만 → 혜택</span><span class="v zero">0</span></div>`; }
+  else{
+    const cvsD=Math.min(W(cvs)*cf*0.05,5000);
+    const delivD=Math.min(W(deliv)*cf*0.10,5000);
+    const cafeD=Math.min(W(cafe)*cf*0.50,10000);
+    const subsD=Math.min(W(subs)*cf*0.20,5000);
+    const onlineD=Math.min(W(online)*cf*0.05,5000);
+    const raw=cvsD+delivD+cafeD+subsD+onlineD;
+    nhMonthly=Math.min(raw,32000);
+    nhLines=`<div><span>편의점5%·배달10%·스벅50%</span><span class="v">${fmtW(cvsD+delivD+cafeD)}원</span></div>`+
+      `<div><span>구독20%·온라인5%</span><span class="v">${fmtW(subsD+onlineD)}원</span></div>`+
+      `<div><span class="zero">통신(알뜰폰)·외식·마트·병원</span><span class="v zero">0</span></div>`+
+      (raw>32000+0.5?`<div><span class="capped">└ 월통합 3.2만 한도</span><span class="v capped">${fmtW(nhMonthly)}원</span></div>`:``)+
+      `<div style="border-top:1px solid var(--line);margin-top:3px;padding-top:3px"><span>월 혜택</span><span class="v">${fmtW(nhMonthly)}원</span></div>`;
+  }
+  const nhNet=nhMonthly*months/10000 - 1;
 
-  const maxAbs=Math.max(15,Math.abs(mlNet),Math.abs(vtNet),Math.abs(flNet));
-  function paint(s,net,lines){
+  const nets={ZH:zhNet,ZP:zpNet,ML:mlNet,IBK:ibkNet,NH:nhNet};
+  const linesMap={ZH:zLines(0.008),ZP:zLines(0.012),ML:mlLines,IBK:ibkLines,NH:nhLines};
+  const maxAbs=Math.max(10,...Object.values(nets).map(Math.abs));
+  function paint(s){
+    const net=nets[s];
     $('net-'+s).textContent=won(net); $('net-'+s).className='net '+(net>=0?'pos':'neg');
     const bar=$('bar-'+s); bar.style.width=Math.min(100,Math.abs(net)/maxAbs*100)+'%'; bar.style.background=net>=0?'var(--green)':'var(--red)';
-    $('lines-'+s).innerHTML=lines;
+    $('lines-'+s).innerHTML=linesMap[s];
   }
-  paint('ML',mlNet,mlLines); paint('VT',vtNet,vtLines); paint('FL',flNet,flLines);
-  ['ML','VT','FL'].forEach(s=>$('block-'+s).classList.remove('win'));
-  const best=Math.max(mlNet,vtNet,flNet), bestS=best===mlNet?'ML':best===vtNet?'VT':'FL';
+  ['ZH','ZP','ML','IBK','NH'].forEach(s=>{paint(s);$('block-'+s).classList.remove('win');});
+  const names={ZH:'현대 ZERO 할인형',ZP:'현대 ZERO 포인트형',ML:'신한 Mr.Life',IBK:'IBK 데일리위드',NH:'NH 올바른FLEX'};
+  let bestS='ZH'; for(const s in nets) if(nets[s]>nets[bestS]) bestS=s;
   $('block-'+bestS).classList.add('win');
-  const names={ML:'신한 Mr.Life',VT:'삼성 iD VITA',FL:'단순 1.2%'};
-  let v2=`<b>${names[bestS]} 우위</b> — 8개월 ${won(best)}. Mr.Life ${won(mlNet)} / iD VITA ${won(vtNet)} / 단순 ${won(flNet)}.`;
-  v2+=`<br><br>📌 10% 할인이라도 횟수(편의점·병원 5회, 야간외식 10회)·요일·건당 1천원 한도 때문에 실제 천장은 월 3-4만. 병원·대형마트 지출 크면 iD VITA(병원 20%)가, 편의점·야간외식 잦으면 Mr.Life가 유리.`;
+  let v2=`<b>${names[bestS]} 우위</b> — 8개월 ${won(nets[bestS])}.<br>`+
+    `ZERO할인 ${won(zhNet)} / ZERO포인트 ${won(zpNet)} / Mr.Life ${won(mlNet)} / IBK ${won(ibkNet)} / NH ${won(nhNet)}`;
+  v2+=`<br><br>📌 간편결제 비율↑·소비 분산↑일수록 무조건형 ZERO가 앞섬. 포인트형(1.2%)이 액면 높지만 M포인트 실질가치는 사용처에 따라 하락 → 확실한 현금은 할인형(0.8%). Mr.Life/NH의 10~50%는 요일·횟수·통합한도 천장에 막힘.`;
   $('verdict2').innerHTML=v2;
 }
 
-function calcAll(){ calc1(); calc2(); }
+/* ---------- 섹션 3 ---------- */
+function calc3(){
+  let sum=0, credit=0, checkYr=0, lines='';
+  document.querySelectorAll('.c3').forEach(c=>{
+    if(c.checked){
+      const amt=+c.dataset.amt; sum+=amt;
+      const nm=c.parentElement.querySelector('.nm').childNodes[0].textContent.trim();
+      lines+=`<div><span>${nm}</span><span class="v">+${amt}만</span></div>`;
+    }
+  });
+  $('sum3').textContent=fmt(sum)+'만';
+  $('sum3lines').innerHTML=lines || `<div><span class="zero">선택된 카드 없음</span><span class="v zero">0</span></div>`;
+  const n=document.querySelectorAll('.c3:checked').length;
+  $('verdict3').innerHTML=`선택 <b>${n}장</b> · 총 <b>${fmt(sum)}만원</b> 캐시백.<br><br>`+
+    `📌 한 달에 다 하려면 카드마다 첫 달 실적을 채워야 하니, 큰 지출(예식장·항공·호텔) 있는 달에 <b>2~3장씩 나눠 발급</b>하면 실적을 큰 결제 한 방으로 클리어. 무리하게 한 번에 다 만들면 실적 관리·신용조회 부담 → 2~3장씩 롤링 추천.`;
+}
+
+function calcAll(){ calc1(); calc2(); calc3(); }
 document.querySelectorAll('input').forEach(el=>el.addEventListener('input',calcAll));
+document.querySelectorAll('.c3').forEach(el=>el.addEventListener('change',calc3));
 calcAll();
 </script>
 </body>
